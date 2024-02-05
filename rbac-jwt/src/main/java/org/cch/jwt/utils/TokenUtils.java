@@ -5,47 +5,45 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
-import java.util.Map;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.Claims;
-import org.jose4j.jws.AlgorithmIdentifiers;
-import org.jose4j.jws.JsonWebSignature;
-import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.NumericDate;
+import org.jboss.logging.Logger;
 
+import io.smallrye.jwt.algorithm.SignatureAlgorithm;
+import io.smallrye.jwt.build.JwtClaimsBuilder;
+import jakarta.inject.Inject;
 
 public class TokenUtils {
+	
+	@Inject
+	static Logger log;
+
+	@ConfigProperty(name = "security.jwt.token.expire-length", defaultValue = "3600")
+    private static long validityInMilliseconds;
 
 	private TokenUtils() {
 	}
 
-	public static String generateTokenString(JwtClaims claims) throws Exception {
-		// Use the private key associated with the public key for a valid signature
-		PrivateKey pk = readPrivateKey("/private.pem");
+	public static String generateToken(JwtClaimsBuilder jwtClaimsBuilder)
+            throws Exception {
+        PrivateKey pk = readPrivateKey("/private.pem");
+        log.debug("Get Private Key");
+        return generateToken(pk, jwtClaimsBuilder);
+    }
 
-		return generateTokenString(pk, "/privateKey.pem", claims);
-	}
-
-	private static String generateTokenString(PrivateKey privateKey, String kid, JwtClaims claims) throws Exception {
-
-		long currentTimeInSecs = currentTimeInSecs();
-
-		claims.setIssuedAt(NumericDate.fromSeconds(currentTimeInSecs));
-		claims.setClaim(Claims.auth_time.name(), NumericDate.fromSeconds(currentTimeInSecs));
-
-		for (Map.Entry<String, Object> entry : claims.getClaimsMap().entrySet()) {
-			System.out.printf("\tAdded claim: %s, value: %s\n", entry.getKey(), entry.getValue());
-		}
-
-		JsonWebSignature jws = new JsonWebSignature();
-		jws.setPayload(claims.toJson());
-		jws.setKey(privateKey);
-		jws.setKeyIdHeaderValue(kid);
-		jws.setHeader("typ", "JWT");
-		jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
-
-		return jws.getCompactSerialization();
-	}
+    public static String generateToken(PrivateKey privateKey, JwtClaimsBuilder jwtClaimsBuilder) {
+        
+        var currentTime = currentTimeInSecs();
+        return jwtClaimsBuilder
+			.issuedAt(currentTime)
+			.claim(Claims.auth_time.name(), currentTime)
+			.expiresAt(currentTime + validityInMilliseconds)
+			.jws()
+			.algorithm(SignatureAlgorithm.RS256)
+			.header("typ", "JWT")
+			.sign(privateKey);
+    }
 
 	/**
 	 * Read a PEM encoded private key from the classpath
@@ -92,9 +90,8 @@ public class TokenUtils {
 	/**
 	 * @return the current time in seconds since epoch
 	 */
-	public static int currentTimeInSecs() {
-		long currentTimeMS = System.currentTimeMillis();
-		return (int) (currentTimeMS / 1000);
+	public static long currentTimeInSecs() {
+		return System.currentTimeMillis();
 	}
 
 }

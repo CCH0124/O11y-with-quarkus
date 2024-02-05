@@ -1,9 +1,11 @@
 package org.cch.entity;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.management.relation.Role;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
@@ -19,24 +21,29 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user", uniqueConstraints = {
+@Table(name = "users", uniqueConstraints = {
 	@UniqueConstraint(columnNames = "username"),
     @UniqueConstraint(columnNames = "email") 
 })
 @Cacheable
+@Schema(name = "User", description = "Entity that represents a User.")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @Column(length = 40, unique = true, nullable = false)
     private String username;
 
-    @Column(length = 50, unique = true, nullable = false)
     private String email;
 
-    @Column(length = 120, unique = true, nullable = false)
     private String password;
+	@Column(name = "birth_date")
+	private Instant birthDate;
+
+	@Column(name = "created_time")
+	@Schema(description = "Created time of the record")
+	private Instant createdTime;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -85,5 +92,20 @@ public class User {
 		this.roles = roles;
 	}
 
+	public Instant getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Instant createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	public Instant getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Instant birthDate) {
+		this.birthDate = birthDate;
+	}
     
 }

@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: itachi
+      changes:
+        - sqlFile:
+            dbms: "postgresql"
+            encoding: utf8
+            path: db/changelog/2024/data/00001-changelog.sql
+            splitStatements: true
+            stripComments: true
+      comment: create enume role
+  - changeSet:
+      id: 2
+      author: itachi
+      changes:
+        - sqlFile:
+            dbms: "postgresql"
+            encoding: utf8
+            path: db/changelog/2024/table/00001-changelog.sql
+            splitStatements: true
+            stripComments: true
+      comment: create user and role table
+  - changeSet:
+      id: 3
+      author: itachi
+      changes:
+        - sqlFile:
+            dbms: "postgresql"
+            encoding: utf8
+            path: db/changelog/2024/data/00002-changelog.sql
+            splitStatements: true
+            stripComments: true
+      comment: Insert data to roles table

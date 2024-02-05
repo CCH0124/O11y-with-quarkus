@@ -1,5 +1,12 @@
 package org.cch.entity;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,20 +18,22 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "roles")
+@Cacheable
+@Schema(name = "Role", description = "Entity that represents a Role.")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Integer id;
-
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
+    
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
     private ERole name;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

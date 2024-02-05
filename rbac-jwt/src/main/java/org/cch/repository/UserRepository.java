@@ -4,15 +4,21 @@ import java.util.Optional;
 
 import org.cch.entity.User;
 
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class UserRepository implements PanacheRepositoryBase<User, String> {
-    Optional<User> findByUsername(String username) {
-        return find("username", username).firstResult();
+    
+    public Optional<User> findByUsernameOptional(String username) {
+        return find("username", username).firstResultOptional();
     }
 
-    Boolean existsByUsername(String username);
+    public Boolean existsByUsername(String username) {
+        return count("username", username) > 0;
+    }
 
-    Boolean existsByEmail(String email);
+    public Boolean existsByEmail(String email) {
+        return count("email", email) > 0;
+    }
 }
