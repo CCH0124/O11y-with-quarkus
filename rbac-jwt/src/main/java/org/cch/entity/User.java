@@ -1,8 +1,10 @@
 package org.cch.entity;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.GenericGenerator;
@@ -32,7 +34,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID, generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(columnDefinition = "uuid DEFAULT uuid_generate_v4()")
-    private String id;
+    private UUID id;
 
     private String username;
 
@@ -40,7 +42,7 @@ public class User {
 
     private String password;
 	@Column(name = "birth_date")
-	private Instant birthDate;
+	private LocalDate birthDate;
 
 	@Column(name = "created_time")
 	@Schema(description = "Created time of the record")
@@ -53,11 +55,11 @@ public class User {
     public User() {
     }
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -101,11 +103,11 @@ public class User {
 		this.createdTime = createdTime;
 	}
 
-	public Instant getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Instant birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
     

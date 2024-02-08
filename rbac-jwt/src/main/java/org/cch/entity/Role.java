@@ -1,5 +1,7 @@
 package org.cch.entity;
 
+import java.util.UUID;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcType;
@@ -24,18 +26,18 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.UUID, generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(columnDefinition = "uuid DEFAULT uuid_generate_v4()")
-    private String id;
+    private UUID id;
     
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "erole")
     @JdbcType(PostgreSQLEnumJdbcType.class)
     private ERole name;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

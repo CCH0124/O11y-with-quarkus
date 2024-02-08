@@ -1,6 +1,7 @@
 package org.cch.dto;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,7 @@ public record RegisterDTO(
         String username,
         String email,
         String password,
-        Instant birthDate,
+        LocalDate birthDate,
         Set<ERole> roles) {
     public RegisterDTO(RegisterRequest requestVO) {
         this(requestVO.username(), requestVO.email(), requestVO.password(), requestVO.birthDate(),

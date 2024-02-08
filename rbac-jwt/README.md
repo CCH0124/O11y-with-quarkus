@@ -62,15 +62,23 @@ $ openssl rsa -in public.pem -pubout -outform PEM -out public.pem
 
 ## API
 
-```
+```bash
 $ curl -XPOST -H "content-Type: application/json" http://localhost:8080/api/register -d '{
     "username": "madara",
     "email": "madara@gmail.com",
-    "password": "1234567890",
+    "password": "1234567890", 
+    "birth_date": "2023-01-24",
     "roles": [
         "USER",
         "MODERATOR",
         "ADMIN"
     ]
 }'
+```
+
+
+```bash
+$ curl -XPOST -H "content-Type: application/json" http://localhost:8080/api/login -d '{
+    "username": "madara",
+    "password": "1234567890"}'
 ```

@@ -10,7 +10,7 @@ CREATE TABLE users (
    username VARCHAR(20) NOT NULL,
    email VARCHAR(50) NOT NULL,
    password VARCHAR(120) NOT NULL,
-   birth_date timestamp(0) NOT NULL,
+   birth_date DATE NOT NULL,
    created_time timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP,
    CONSTRAINT pk_users PRIMARY KEY (id)
 );

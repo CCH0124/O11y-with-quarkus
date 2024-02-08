@@ -1,7 +1,6 @@
 package org.cch.service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,7 +47,7 @@ public class UserService {
         
         if (user.getPassword().equals(authRequest.password())){
             var roles = user.getRoles().stream().map(x -> x.getName()).collect(Collectors.toSet());
-            var tokenDto = new TokenDTO(user.getId(), user.getUsername(), user.getEmail(), user.getBirthDate(), roles);
+            var tokenDto = new TokenDTO(user.getId().toString(), user.getUsername(), user.getEmail(), user.getBirthDate(), roles);
             return tokenService.generateToken(tokenDto);
         }
         throw new AuthenticationPasswordException();

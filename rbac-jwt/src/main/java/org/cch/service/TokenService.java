@@ -19,6 +19,9 @@ public class TokenService {
     
     @Inject
     Logger log;
+
+    @Inject
+    TokenUtils tokenUtils;
     
     private static final String ISSUER = "https://localhost.com/issuer";
 
@@ -37,7 +40,7 @@ public class TokenService {
             .groups(groups);
 
         try {
-            return TokenUtils.generateToken(claimsBuilder);
+            return tokenUtils.generateToken(claimsBuilder);
         } catch (Exception e) {
             log.error("Token generate faild.");
             log.error(e.getMessage());
