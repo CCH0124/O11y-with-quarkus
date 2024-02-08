@@ -69,8 +69,10 @@ public class UserService {
         user.setEmail(registerRequest.email());
         user.setBirthDate(registerRequest.birthDate());
         user.setRoles(roles);
-        userRepository.findByUsernameOptional(registerRequest.username()).orElseThrow(AuthenticationUsernameException::new);
-        // user.password = cryptoService.encrypt(user.password);
+        var isExist = userRepository.findByUsernameOptional(registerRequest.username());
+        if (isExist.isPresent()) {
+            throw new AuthenticationUsernameException();
+        }
         userRepository.persist(user);
         log.infof("Insert User %s", user.getUsername());
     }

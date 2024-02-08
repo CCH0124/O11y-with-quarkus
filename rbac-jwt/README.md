@@ -59,3 +59,18 @@ $ openssl genrsa -out public.pem
 $ openssl pkcs8 -topk8 -inform PEM -in public.pem -out private.pem -nocrypt
 $ openssl rsa -in public.pem -pubout -outform PEM -out public.pem
 ```
+
+## API
+
+```
+$ curl -XPOST -H "content-Type: application/json" http://localhost:8080/api/register -d '{
+    "username": "madara",
+    "email": "madara@gmail.com",
+    "password": "1234567890",
+    "roles": [
+        "USER",
+        "MODERATOR",
+        "ADMIN"
+    ]
+}'
+```

@@ -29,8 +29,9 @@ import jakarta.persistence.UniqueConstraint;
 @Schema(name = "User", description = "Entity that represents a User.")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID, generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(columnDefinition = "uuid DEFAULT uuid_generate_v4()")
     private String id;
 
     private String username;

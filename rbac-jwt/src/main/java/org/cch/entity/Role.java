@@ -2,9 +2,8 @@ package org.cch.entity;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
@@ -22,11 +21,14 @@ import jakarta.persistence.Table;
 @Schema(name = "Role", description = "Entity that represents a Role.")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID, generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(columnDefinition = "uuid DEFAULT uuid_generate_v4()")
     private String id;
     
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "erole")
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     private ERole name;
 
     public String getId() {

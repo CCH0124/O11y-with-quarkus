@@ -13,7 +13,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class RoleRepository implements PanacheRepositoryBase<Role, String> {
     
     public Optional<Role> findByNameOptional(ERole name) {
-        return find("name = :name", Parameters.with("name", name.toString())).firstResultOptional();
+        return find("name = :name", Parameters.with("name", name)).firstResultOptional();
     }
 
 }
