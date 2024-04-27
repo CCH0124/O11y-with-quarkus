@@ -1,0 +1,37 @@
+greeting:
+  message: "hello"
+
+quarkus:
+  container-image:
+    group: cch0124
+    name: ${quarkus.application.name:unset}
+    tag: ${quarkus.application.version:latest}
+    builder: jib
+    labels:
+      "maintainer": cch
+      "app": ${quarkus.application.name}
+    registry: registry.hub.docker.com
+  jib:
+    base-native-image: quay.io/quarkus/quarkus-micro-image:2.0
+    user: itachi
+    working-directory: /home/jboss
+    
+  kubernetes:
+    deployment-kind: deployment
+    replicas: 1
+    strategy: rolling-update
+    service-type: cluster-ip
+    prometheus:
+      annotations: true
+      generate-service-monitor: true
+    namespace: itachi
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 10m
+      limits:
+        memory: 256Mi
+        cpu: 100m
+    ingress:
+      expose: false
+
