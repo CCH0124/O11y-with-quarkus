@@ -34,4 +34,5 @@ quarkus:
         cpu: 100m
     ingress:
       expose: false
+    output-directory: kubernetes
 

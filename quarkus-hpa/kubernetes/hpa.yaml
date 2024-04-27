@@ -1,0 +1,34 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  annotations:
+    app.quarkus.io/quarkus-version: 3.9.4
+    app.quarkus.io/commit-id: 260a13c09b391a4a1edb357fb2d305523cfbf9d5
+    app.quarkus.io/vcs-uri: https://github.com/CCH0124/O11y-with-quarkus.git
+    app.quarkus.io/build-timestamp: 2024-04-27 - 10:36:18 +0000
+  labels:
+    app.kubernetes.io/name: quarkus-hpa
+    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/managed-by: quarkus
+  name: quarkus-hpa
+  namespace: itachi
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: quarkus-hpa
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

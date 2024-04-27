@@ -81,5 +81,5 @@ Monitor your application's health using SmallRye Health
 ### Build Image
 
 ```bash
-gradle build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dquarkus.container-image.push=true  -Dquarkus.container-image.build=true -Dquarkus.container-image.additional-tags=$(git log -1 --pretty=format:%h) -Dquarkus.jib.platforms=linux/amd64 -Dquarkus.container-image.username=${USERNAME} -Dquarkus.container-image.password=${PASSWORD} quarkus.native.container-runtime=docker -Dquarkus.native.native-image-xmx=3g
+gradle build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dquarkus.container-image.push=true  -Dquarkus.container-image.build=true -Dquarkus.container-image.additional-tags=$(git log -1 --pretty=format:%h) -Dquarkus.jib.platforms=linux/amd64 -Dquarkus.container-image.username=${USERNAME} -Dquarkus.container-image.password=${PASSWORD} -Dquarkus.native.container-runtime=docker -Dquarkus.native.native-image-xmx=3g
 ```
