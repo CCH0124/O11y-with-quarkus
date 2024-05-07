@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: busybox
+  name: load-generator
+  namespace: itachi
+spec:
+  restartPolicy: Never
+  containers:
+  - image: curlimages/curl
+    name: curl
+    command:
+      - /bin/sh
+      - -c
+      - for i in $(seq 1 50); do curl http://quarkus-hpa.itachi.svc.cluster.local/prime/$i ; sleep 2 ; done
