@@ -30,9 +30,9 @@ public class HpaResource {
     }
 
     @GET
-    @Path("prime/{number}")
+    @Path("fib/{number}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isPrime(@PathParam("number") String number) {
+    public Response fib(@PathParam("number") String number) {
         var num = Integer.parseInt(number);
         return Response.ok(fib(num)).build();
 

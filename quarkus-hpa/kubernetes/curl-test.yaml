@@ -13,4 +13,4 @@ spec:
     command:
       - /bin/sh
       - -c
-      - for i in $(seq 1 50); do curl http://quarkus-hpa.itachi.svc.cluster.local/prime/$i ; sleep 2 ; done
+      - for i in $(seq 1 60); do curl http://quarkus-hpa.itachi.svc.cluster.local/fib/$i ; sleep 2 ; done

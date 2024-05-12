@@ -4,9 +4,9 @@
   "metadata" : {
     "annotations" : {
       "app.quarkus.io/quarkus-version" : "3.9.4",
-      "app.quarkus.io/commit-id" : "17cb349868c7bbdea96934098899b55c03c029fe",
+      "app.quarkus.io/commit-id" : "100f8f44a33b39a705c133907335930290ffd5a4",
       "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/O11y-with-quarkus.git",
-      "app.quarkus.io/build-timestamp" : "2024-04-27 - 11:07:12 +0000",
+      "app.quarkus.io/build-timestamp" : "2024-05-12 - 09:10:46 +0000",
       "prometheus.io/scrape" : "true",
       "prometheus.io/path" : "/q/metrics",
       "prometheus.io/port" : "8080",
@@ -39,9 +39,9 @@
   "metadata" : {
     "annotations" : {
       "app.quarkus.io/quarkus-version" : "3.9.4",
-      "app.quarkus.io/commit-id" : "17cb349868c7bbdea96934098899b55c03c029fe",
+      "app.quarkus.io/commit-id" : "100f8f44a33b39a705c133907335930290ffd5a4",
       "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/O11y-with-quarkus.git",
-      "app.quarkus.io/build-timestamp" : "2024-04-27 - 11:07:12 +0000",
+      "app.quarkus.io/build-timestamp" : "2024-05-12 - 09:10:46 +0000",
       "prometheus.io/scrape" : "true",
       "prometheus.io/path" : "/q/metrics",
       "prometheus.io/port" : "8080",
@@ -74,9 +74,9 @@
       "metadata" : {
         "annotations" : {
           "app.quarkus.io/quarkus-version" : "3.9.4",
-          "app.quarkus.io/commit-id" : "17cb349868c7bbdea96934098899b55c03c029fe",
+          "app.quarkus.io/commit-id" : "100f8f44a33b39a705c133907335930290ffd5a4",
           "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/O11y-with-quarkus.git",
-          "app.quarkus.io/build-timestamp" : "2024-04-27 - 11:07:12 +0000",
+          "app.quarkus.io/build-timestamp" : "2024-05-12 - 09:10:46 +0000",
           "prometheus.io/scrape" : "true",
           "prometheus.io/path" : "/q/metrics",
           "prometheus.io/port" : "8080",
@@ -163,9 +163,9 @@
   "metadata" : {
     "annotations" : {
       "app.quarkus.io/quarkus-version" : "3.9.4",
-      "app.quarkus.io/commit-id" : "17cb349868c7bbdea96934098899b55c03c029fe",
+      "app.quarkus.io/commit-id" : "100f8f44a33b39a705c133907335930290ffd5a4",
       "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/O11y-with-quarkus.git",
-      "app.quarkus.io/build-timestamp" : "2024-04-27 - 11:07:12 +0000"
+      "app.quarkus.io/build-timestamp" : "2024-05-12 - 09:10:46 +0000"
     },
     "labels" : {
       "app.kubernetes.io/name" : "quarkus-hpa",
