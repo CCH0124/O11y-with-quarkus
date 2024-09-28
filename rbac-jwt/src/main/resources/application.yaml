@@ -1,0 +1,49 @@
+# JWT
+mp:
+  jwt:
+    verify:
+      publickey:
+        location: public.pem
+      issuer: Itachi
+jwt:
+  expire-milliseconds: 3600
+  private-key-path: /home/itachi/github/O11y-with-quarkus/rbac-jwt/key/private.pem
+
+quarkus:
+  smallrye-jwt:
+    enabled: true
+  native: 
+    resources:
+      includes: public.pem
+  # LOGGING
+  log:
+    level: DEBUG
+    console:
+      async: true
+  # DATABASE
+  liquibase:
+    migrate-at-start: true
+    change-log: db/db.changelog-master.yaml
+    database-change-log-lock-table-name: DATABASECHANGELOGLOCK
+    database-change-log-table-name: DATABASECHANGELOG
+    default-schema-name: dev
+    liquibase-schema-name: dev
+  hibernate-orm:
+    database: 
+      generation: none
+      default-schema: dev
+    log:
+      sql: true
+  datasource:
+    db-kind: postgresql
+    username: docker
+    password: 123456
+    jdbc.url: jdbc:postgresql://127.0.0.1:5432/user_mgm?search_path=dev
+
+# quarkus.liquibase.clean-at-start=false
+# quarkus.liquibase.contexts=Context1,Context2
+# quarkus.liquibase.labels=Label1,Label2
+# quarkus.liquibase.default-catalog-name=DefaultCatalog
+
+# quarkus.liquibase.liquibase-catalog-name=liquibaseCatalog
+# quarkus.liquibase.liquibase-tablespace-name=liquibaseSpace

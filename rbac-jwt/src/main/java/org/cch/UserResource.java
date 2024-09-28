@@ -11,9 +11,9 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
+import org.cch.config.Token;
 import org.cch.dto.AuthenticationDTO;
 import org.cch.dto.RegisterDTO;
-import org.cch.entity.ERole;
 import org.cch.request.AuthenticationRequest;
 import org.cch.request.RegisterRequest;
 import org.cch.response.AuthenticationResponse;
@@ -34,14 +34,23 @@ public class UserResource {
     @Inject
     JsonWebToken jwt;
 
+    @Inject
+	Token tokenConfig;
+    
     @PermitAll
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@RequestBody AuthenticationRequest authRequest) throws Exception {
+    public Response login(@RequestBody AuthenticationRequest authRequest) {
         var authDto = new AuthenticationDTO(authRequest);
-        final String token = userService.authenticate(authDto);
-        return Response.ok(new AuthenticationResponse(token)).build();
+        String token;
+        try {
+            token = userService.authenticate(authDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
+        }
+        return Response.ok(new AuthenticationResponse(token, String.valueOf(tokenConfig.expireMilliseconds()))).build();
     }
 
     @PermitAll
