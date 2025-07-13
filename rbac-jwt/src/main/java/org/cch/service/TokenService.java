@@ -22,19 +22,17 @@ public class TokenService {
 
     @Inject
     TokenUtils tokenUtils;
-    
-    private static final String ISSUER = "https://localhost.com/issuer";
+
 
     public String generateToken(TokenDTO tokenDTO) {
         Set<String> groups = tokenDTO.roles().stream().map(x -> x.name()).collect(Collectors.toSet());
 
         JwtClaimsBuilder claimsBuilder = Jwt.claims();
         claimsBuilder
-            .issuer(ISSUER)
             .subject(tokenDTO.email())
-            .claim(Claims.upn.name(), tokenDTO.email())
+            .claim(Claims.upn.name(), tokenDTO.username())
             .claim(Claims.preferred_username.name(), tokenDTO.username())
-            .claim(Claims.email.name(), tokenDTO.email())
+            .claim(Claims.email_verified.name(), tokenDTO.email())
             .claim("id", tokenDTO.userId())
             .claim(Claims.birthdate.name(), tokenDTO.birthDate())
             .groups(groups);
@@ -47,7 +45,5 @@ public class TokenService {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
     }
 }

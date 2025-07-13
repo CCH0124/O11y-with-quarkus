@@ -24,6 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import java.net.URI;
 
 
+
 @Path("/api")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -40,8 +41,7 @@ public class UserResource {
     @PermitAll
     @POST
     @Path("/login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@RequestBody AuthenticationRequest authRequest) {
+    public Response login(@RequestBody final AuthenticationRequest authRequest) {
         var authDto = new AuthenticationDTO(authRequest);
         String token;
         try {
@@ -56,7 +56,6 @@ public class UserResource {
     @PermitAll
     @POST
     @Path("/register")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response register(@RequestBody RegisterRequest registerRequest, @Context UriInfo uriInfo) throws Exception {
         var registerDto = new RegisterDTO(registerRequest);
         userService.register(registerDto);

@@ -32,7 +32,6 @@ import jakarta.persistence.UniqueConstraint;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID, generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(columnDefinition = "uuid DEFAULT uuid_generate_v4()")
     private UUID id;
 

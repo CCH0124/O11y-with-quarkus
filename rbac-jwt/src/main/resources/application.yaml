@@ -1,26 +1,21 @@
-# JWT
 mp:
   jwt:
     verify:
       publickey:
-        location: public.pem
-      issuer: Itachi
-jwt:
-  expire-milliseconds: 3600
-  private-key-path: /home/itachi/github/O11y-with-quarkus/rbac-jwt/key/private.pem
-
+        location: /home/lab/github/O11y-with-quarkus/rbac-jwt/jwt/publicKey.pem
+      issuer: https://itachi.com/issuer
+      audiences: photo-api
 quarkus:
+  native:
+    resources:
+      includes: /home/lab/github/O11y-with-quarkus/rbac-jwt/jwt/publicKey.pem
   smallrye-jwt:
     enabled: true
-  native: 
-    resources:
-      includes: public.pem
-  # LOGGING
   log:
     level: DEBUG
     console:
-      async: true
-  # DATABASE
+      async:
+        enable: true
   liquibase:
     migrate-at-start: true
     change-log: db/db.changelog-master.yaml
@@ -29,21 +24,30 @@ quarkus:
     default-schema-name: dev
     liquibase-schema-name: dev
   hibernate-orm:
-    database: 
-      generation: none
+    database:
       default-schema: dev
     log:
-      sql: true
+      sql: false
+    schema-management:
+      strategy: none
   datasource:
     db-kind: postgresql
     username: docker
     password: 123456
-    jdbc.url: jdbc:postgresql://127.0.0.1:5432/user_mgm?search_path=dev
-
-# quarkus.liquibase.clean-at-start=false
-# quarkus.liquibase.contexts=Context1,Context2
-# quarkus.liquibase.labels=Label1,Label2
-# quarkus.liquibase.default-catalog-name=DefaultCatalog
-
-# quarkus.liquibase.liquibase-catalog-name=liquibaseCatalog
-# quarkus.liquibase.liquibase-tablespace-name=liquibaseSpace
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/user_mgm?currentSchema=my_app_schema
+smallrye:
+  jwt:
+    sign:
+      key:
+        location: /home/lab/github/O11y-with-quarkus/rbac-jwt/jwt/privateKey.pem
+    encrypt:
+      key:
+        location: /home/lab/github/O11y-with-quarkus/rbac-jwt/jwt/publicKey.pem
+    new-token:
+      lifespan: 300
+      audience: photo-api
+      issuer: https://itachi.com/issuer
+      signature-algorithm: RS256
+jwt:
+  expire-milliseconds: ${smallrye.jwt.new-token.lifespan}

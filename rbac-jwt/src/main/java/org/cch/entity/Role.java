@@ -3,9 +3,9 @@ package org.cch.entity;
 import java.util.UUID;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcType;
-import org.hibernate.dialect.PostgreSQLEnumJdbcType;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
@@ -24,13 +24,12 @@ import jakarta.persistence.Table;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID, generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(columnDefinition = "uuid DEFAULT uuid_generate_v4()")
     private UUID id;
     
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "erole")
-    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private ERole name;
 
     public UUID getId() {

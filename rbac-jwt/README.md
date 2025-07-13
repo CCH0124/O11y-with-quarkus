@@ -55,9 +55,9 @@ If you want to learn more about building native executables, please consult http
 ## Key
 
 ```bash
-$ openssl genrsa -out public.pem
-$ openssl pkcs8 -topk8 -inform PEM -in public.pem -out private.pem -nocrypt
-$ openssl rsa -in public.pem -pubout -outform PEM -out public.pem
+openssl genrsa -out rsaPrivateKey.pem 2048
+openssl rsa -pubout -in rsaPrivateKey.pem -out publicKey.pem
+openssl pkcs8 -topk8 -nocrypt -inform pem -in rsaPrivateKey.pem -outform pem -out privateKey.pem
 ```
 
 ## API

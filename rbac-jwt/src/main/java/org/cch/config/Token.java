@@ -10,6 +10,4 @@ public interface Token {
     
     @WithDefault("3600")
     Long expireMilliseconds();
-
-    String privateKeyPath();
 }
