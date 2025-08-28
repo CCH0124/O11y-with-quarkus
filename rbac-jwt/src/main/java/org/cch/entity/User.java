@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
@@ -109,5 +107,4 @@ public class User {
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
-    
 }

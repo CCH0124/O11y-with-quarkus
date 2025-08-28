@@ -12,7 +12,7 @@ quarkus:
   smallrye-jwt:
     enabled: true
   log:
-    level: DEBUG
+    level: ERROR
     console:
       async:
         enable: true
@@ -35,7 +35,7 @@ quarkus:
     username: docker
     password: 123456
     jdbc:
-      url: jdbc:postgresql://localhost:5432/user_mgm?currentSchema=my_app_schema
+      url: jdbc:postgresql://localhost:5432/user_mgm?currentSchema=dev
 smallrye:
   jwt:
     sign:
@@ -51,3 +51,14 @@ smallrye:
       signature-algorithm: RS256
 jwt:
   expire-milliseconds: ${smallrye.jwt.new-token.lifespan}
+
+"%dev":
+  quarkus:
+    live-reload:
+      password: changeit
+      url: http://0.0.0.0:8080
+    package:
+      jar:
+        # https://quarkus.io/guides/maven-tooling#configuration-reference
+        # The "mutable JAR" packaging type (for remote development mode).
+        type: mutable-jar

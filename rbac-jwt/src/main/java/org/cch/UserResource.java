@@ -10,14 +10,14 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-
-import org.cch.config.Token;
 import org.cch.dto.AuthenticationDTO;
 import org.cch.dto.RegisterDTO;
 import org.cch.request.AuthenticationRequest;
 import org.cch.request.RegisterRequest;
 import org.cch.response.AuthenticationResponse;
 import org.cch.service.UserService;
+import org.eclipse.microprofile.config.inject.ConfigProperties;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
@@ -35,8 +35,8 @@ public class UserResource {
     @Inject
     JsonWebToken jwt;
 
-    @Inject
-	Token tokenConfig;
+    @ConfigProperty(name = "smallrye.jwt.new-token.lifespan")
+    Long tokenExpireTime;
     
     @PermitAll
     @POST
@@ -50,7 +50,7 @@ public class UserResource {
             e.printStackTrace();
             return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
         }
-        return Response.ok(new AuthenticationResponse(token, String.valueOf(tokenConfig.expireMilliseconds()))).build();
+        return Response.ok(new AuthenticationResponse(token, String.valueOf(tokenExpireTime))).build();
     }
 
     @PermitAll

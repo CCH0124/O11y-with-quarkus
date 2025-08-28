@@ -24,6 +24,8 @@ dependencies {
     implementation 'io.quarkus:quarkus-smallrye-openapi'
     implementation 'io.quarkus:quarkus-micrometer-registry-prometheus'
     implementation 'io.quarkus:quarkus-micrometer'
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation 'org.mindrot:jbcrypt:0.4'
     implementation 'io.quarkus:quarkus-smallrye-health'
     implementation 'io.quarkus:quarkus-arc'
     testImplementation 'io.quarkus:quarkus-junit5'
@@ -47,4 +49,14 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+}
+
+// quarkusDev {
+//     jvmArgs = ["-Dquarkus.profile=dev"]
+//     environmentVariables = [QUARKUS_APPLICATION_VERSION: 'v0.0.1-alpha', QUARKUS_LAUNCH_DEVMODE: true]
+// }
+
+quarkusRemoteDev {
+    jvmArgs = ["-Dquarkus.profile=dev"]
+    environmentVariables = [QUARKUS_APPLICATION_VERSION: 'v0.0.1-alpha', QUARKUS_LAUNCH_DEVMODE: 'true']
 }
